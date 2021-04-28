@@ -1,0 +1,46 @@
+.form-box {
+    border: 1px solid gray;
+    width: 400px;
+    height: 480px;
+    margin: 6% auto;
+    background: #fff;
+    padding: 5px;
+}
+.login-box {
+    text-align: center;
+}
+input:focus {
+    outline: none;
+}
+input {
+    border-style: none;
+    border-bottom-style: groove;
+    padding: 5px;
+}
+input[type='checkbox'] {
+    width:20px;
+    height:20px;
+    background:white;
+}
+.error {
+    color: red;
+}
+
+button {
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.register{
+    background-color: blue;
+}
+.register:hover{
+    background-color: dodgerblue;
+}
+.google-btn{
+    background-color: gold;
+}
