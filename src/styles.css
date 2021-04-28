@@ -1,10 +1,18 @@
-.form-box {
-    border: 1px solid gray;
-    width: 400px;
-    height: 480px;
+.form-box-register {
+    width: 350px;
+    height: 580px;
     margin: 6% auto;
     background: #fff;
     padding: 5px;
+    box-shadow: 0 0 20px 5px lightgray;
+}
+.form-box-login {
+    width: 350px;
+    height: 420px;
+    margin: 6% auto;
+    background: #fff;
+    padding: 5px;
+    box-shadow: 0 0 20px 5px lightgray;
 }
 .login-box {
     text-align: center;
@@ -17,10 +25,14 @@ input {
     border-bottom-style: groove;
     padding: 5px;
 }
-input[type='checkbox'] {
-    width:20px;
-    height:20px;
-    background:white;
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    background: white;
+}
+.checkText{
+    position: relative;
+    top: -4px;
 }
 .error {
     color: red;
@@ -35,12 +47,22 @@ button {
     margin: 4px 2px;
     cursor: pointer;
 }
-.register{
+.register {
     background-color: blue;
 }
-.register:hover{
+.register:hover {
     background-color: dodgerblue;
 }
-.google-btn{
-    background-color: gold;
+.google-btn {
+    background-color: lightgray;
+    font-size: 15px;
+}
+.google-btn:hover {
+    background-color: gray;
+}
+.icon {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: 4px;
 }

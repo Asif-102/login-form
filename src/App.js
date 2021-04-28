@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
-import './styles.css';
 import { useForm } from "react-hook-form";
+import { FcGoogle } from 'react-icons/fc';
+import './styles.css';
 
 function App() {
 
@@ -18,14 +19,16 @@ function App() {
 
   return (
     <div>
-      <div className="form-box">
+      <div className={`form-box-${newUser ? 'register':'login'}`}>
         <div className="login-box">
           <br />
-          <button className="google-btn">Google Sign in</button>
+          
+          <button className="google-btn"><FcGoogle className="icon"/> Sign in</button>
+
           <h2>Login Here</h2>
 
           <input type="checkbox" name="newUser" onChange={() => setNewUser(!newUser)} />
-          <label htmlFor="newUser">New User Sign up</label>
+          <label htmlFor="newUser"><span className="checkText">New User Sign up</span></label>
           <br /><br />
 
           <form onSubmit={handleSubmit(onSubmit)}>
