@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useForm } from "react-hook-form";
+import firebase from "firebase/app";
+import "firebase/auth"
 import { FcGoogle } from 'react-icons/fc';
 import './styles.css';
 
@@ -22,7 +24,7 @@ function App() {
       <div className={`form-box-${newUser ? 'register':'login'}`}>
         <div className="login-box">
           <br />
-          
+
           <button className="google-btn"><FcGoogle className="icon"/> Sign in</button>
 
           <h2>Login Here</h2>
