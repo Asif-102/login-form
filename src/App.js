@@ -79,7 +79,11 @@ function App() {
               </span>
             }
 
-            <button type="submit" className="register">Submit</button>
+            <button type="submit" className="register">
+              {
+                newUser ? 'Register':'Login'
+              }
+            </button>
           </form>
         </div>
       </div>
