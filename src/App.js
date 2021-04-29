@@ -1,31 +1,71 @@
+import './styles.css';
 import React, { useRef, useState } from 'react';
 import { useForm } from "react-hook-form";
 import firebase from "firebase/app";
 import "firebase/auth"
 import { FcGoogle } from 'react-icons/fc';
-import './styles.css';
+import firebaseConfig from './firebase.config';
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+} else {
+  firebase.app();
+}
 
 function App() {
+  
 
   const [newUser, setNewUser] = useState(false);
-
+  const [user, setUser] = useState({
+    isSignedIn: false,
+    name: '',
+    email: '',
+    password: '',
+    photo: '',
+    success: false
+  });
   const { register, handleSubmit, watch, reset, formState: { errors } } = useForm();
   const password = useRef({});
   password.current = watch("password", "");
 
+  const googleProvider = new firebase.auth.GoogleAuthProvider();
+  const handleSignIn = () => {
+    firebase.auth()
+      .signInWithPopup(googleProvider)
+      .then((result) => {
+        const{displayName, email, photoURL} = result.user;
+        const signIn = {
+          isSignedIn: true,
+          name: displayName,
+          email: email,
+          photo: photoURL
+        };
+        setUser(signIn);
+      }).catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        var email = error.email;
+        var credential = error.credential;
+        console.log(errorCode, errorMessage, email, credential);
+      });
+  }
+
   const onSubmit = data => {
-    const {name, email, password} = data;
+    const { name, email, password } = data;
     console.log(data);
     reset();
   }
 
   return (
     <div>
-      <div className={`form-box-${newUser ? 'register':'login'}`}>
+      <h4 style={{textAlign:'center'}}>Hello {user.name}</h4>
+      <div className={`form-box-${newUser ? 'register' : 'login'}`}>
         <div className="login-box">
           <br />
 
-          <button className="google-btn"><FcGoogle className="icon"/> Sign in</button>
+          <button className="google-btn" onClick={handleSignIn}>
+            <FcGoogle className="icon" /> Sign in
+          </button>
 
           <h2>Login Here</h2>
 
@@ -86,7 +126,7 @@ function App() {
 
             <button type="submit" className="register">
               {
-                newUser ? 'Register':'Login'
+                newUser ? 'Register' : 'Login'
               }
             </button>
           </form>
