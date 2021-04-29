@@ -72,7 +72,9 @@ function App() {
 
   return (
     <div>
-      <h4 style={{ textAlign: 'center' }}>Hello {user.name}</h4>
+      {
+        user.isSignedIn && <h4 style={{ textAlign: 'center' }}>Hello {user.name}</h4>
+      }
       <div className={`form-box-${newUser ? 'register' : 'login'}`}>
         <div className="login-box">
           <br />
