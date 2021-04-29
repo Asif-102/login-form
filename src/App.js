@@ -13,7 +13,7 @@ if (!firebase.apps.length) {
 }
 
 function App() {
-  
+
 
   const [newUser, setNewUser] = useState(false);
   const [user, setUser] = useState({
@@ -33,7 +33,7 @@ function App() {
     firebase.auth()
       .signInWithPopup(googleProvider)
       .then((result) => {
-        const{displayName, email, photoURL} = result.user;
+        const { displayName, email, photoURL } = result.user;
         const signIn = {
           isSignedIn: true,
           name: displayName,
@@ -49,6 +49,20 @@ function App() {
         console.log(errorCode, errorMessage, email, credential);
       });
   }
+  const handleSignOut = () => {
+    firebase.auth().signOut().then((result) => {
+      const signOut = {
+        isSignedIn: false,
+        name: '',
+        email: '',
+        photo: '',
+        error: ''
+      };
+      setUser(signOut);
+    }).catch((error) => {
+      // An error happened.
+    });
+  }
 
   const onSubmit = data => {
     const { name, email, password } = data;
@@ -58,14 +72,18 @@ function App() {
 
   return (
     <div>
-      <h4 style={{textAlign:'center'}}>Hello {user.name}</h4>
+      <h4 style={{ textAlign: 'center' }}>Hello {user.name}</h4>
       <div className={`form-box-${newUser ? 'register' : 'login'}`}>
         <div className="login-box">
           <br />
-
-          <button className="google-btn" onClick={handleSignIn}>
-            <FcGoogle className="icon" /> Sign in
+          {
+            user.isSignedIn ? <button className="google-btn" onClick={handleSignOut}>
+              <FcGoogle className="icon" /> Sign Out
+          </button> :
+              <button className="google-btn" onClick={handleSignIn}>
+                <FcGoogle className="icon" /> Sign in
           </button>
+          }
 
           <h2>Login Here</h2>
 
