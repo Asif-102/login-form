@@ -64,11 +64,63 @@ function App() {
     });
   }
 
+
   const onSubmit = data => {
     const { name, email, password } = data;
-    console.log(data);
+    
+    // for old user
+    if (newUser && email && password) {
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then(res => {
+          const newUserInfo = { ...user };
+          newUserInfo.error = '';
+          newUserInfo.success = true;
+          setUser(newUserInfo);
+          updateUserName(user.name);
+          // alert('New User Created Successfully');
+        })
+        .catch((error) => {
+          const newUserInfo = { ...user };
+          newUserInfo.error = error.message;
+          newUserInfo.success = false;
+          setUser(newUserInfo);
+          // ..
+        });
+    }
+    // for new user
+    if (!newUser && email && password) {
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(res => {
+          const newUserInfo = { ...user };
+          newUserInfo.error = '';
+          newUserInfo.success = true;
+          setUser(newUserInfo);
+          console.log('sign in user info', res.user);
+          // alert('User Logged In Successfully')
+        })
+        .catch((error) => {
+          const newUserInfo = { ...user };
+          newUserInfo.error = error.message;
+          newUserInfo.success = false;
+          setUser(newUserInfo);
+        });
+    }
+
     reset();
   }
+
+    // updated a user's profile
+    const updateUserName = name => {
+      var user = firebase.auth().currentUser;
+  
+      user.updateProfile({
+        displayName: name
+      }).then(function () {
+        console.log('user name updated successfully');
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
 
   return (
     <div>
@@ -150,6 +202,10 @@ function App() {
               }
             </button>
           </form>
+          <p style={{ color: 'red',textAlign:'center' }}>{user.error}</p>
+          {
+            user.success && <p style={{ color: 'green',textAlign:'center' }}>User {newUser ? 'created' : 'Logged In'} successfully</p>
+          }
         </div>
       </div>
     </div>
